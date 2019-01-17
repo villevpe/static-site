@@ -1,12 +1,12 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 
-import { Layout } from '../components/layout'
+import { Layout } from '../components/Layout'
 import { ProfileImage } from '../components/ProfileImage'
 import { Heading, HeadingLevel } from '../components/Heading'
 import { Navbar } from '../components/Navbar'
 import styled from '../styles/styled-components'
-import { Section } from '../components/Section';
+import { Section } from '../components/Section'
 
 const Container = styled('div')`
   display: flex;
