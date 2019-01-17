@@ -1,0 +1,61 @@
+backend:
+  name: test-repo
+
+media_folder: static/assets
+public_folder: assets
+
+collections:
+  - name: "navbar"
+    label: "Navbar"
+    files:
+      - file: "content/navbar.md"
+        label: "Navbar"
+        name: "navbar"
+        fields:
+          - { label: "Template Key", name: "templateKey", widget: "hidden", default: "navbar" }
+          - {
+              label: "Items",
+              name: "items",
+              widget: "list",
+              fields:
+                [
+                  { label: "Label", name: "label", widget: "string" },
+                  { label: "Url", name: "href", widget: "string" }
+                ]
+            }
+  - name: "section"
+    label: "Sections"
+    folder: "content/section"
+    create: true
+    fields:
+      - { name: "title", label: "Title" }
+      - { name: "body", label: "Body", widget: markdown }            
+      - {
+          label: "Image",
+          name: "image",
+          widget: "object",
+          fields:
+            [
+              { label: "Image", name: "src", widget: "image" },
+              { label: "Image Description", name: "alt", widget: "string" },
+            ]
+        }
+  - name: "start"
+    label: "Start Section"
+    files:
+      - file: "content/home.md"
+        label: "Home"
+        name: "home"
+        fields:
+          - { label: "Template Key", name: "templateKey", widget: "hidden", default: "home" }
+          - { label: "Title", name: "title", widget: "string" }
+          - {
+              label: "Header Image",
+              name: "image",
+              widget: "object",
+              fields:
+                [
+                  { label: "Image", name: "src", widget: "image" },
+                  { label: "Image Description", name: "alt", widget: "string" },
+                ]
+            }
