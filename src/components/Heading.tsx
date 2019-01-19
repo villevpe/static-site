@@ -14,7 +14,8 @@ interface Props extends HtmlHTMLAttributes<HTMLHeadElement> {
 
 export const Heading: React.SFC<Props> = ({ text, level = HeadingLevel.H1, ...props }) => {
   const HeadElement = styled(level)`
-    color: ${({ theme }) => theme.color.black}
+    color: ${({ theme }) => theme.color.black};
+    text-align: center;
   `
   return (
     <HeadElement {...props}>

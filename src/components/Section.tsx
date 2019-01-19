@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { HTMLAttributes } from 'react'
 import styled from '../styles/styled-components'
 import { Image } from '../pages'
-import { Heading, HeadingLevel } from './Heading';
+import { Heading, HeadingLevel } from './Heading'
 
 const Container = styled('div')`
   display: flex;
@@ -11,7 +11,7 @@ const Container = styled('div')`
 const Wrapper = styled('div')`
   display: flex;
   flex-direction: column;
-  margin: auto;
+  margin: 0 auto;
   max-width: 800px;
 `
 
@@ -25,10 +25,10 @@ interface Props {
   image?: Image
 }
 
-export const Section: React.SFC<Props> = ({ title, body, image }) => (
-  <Container>
+export const Section: React.SFC<Props & HTMLAttributes<HTMLDivElement>> = ({ title, body, image, ...props }) => (
+  <Container {...props}>
     <Wrapper>
-      <Heading level={HeadingLevel.H3} text={title} />
+      <Heading level={HeadingLevel.H2} text={title} />
       <Content dangerouslySetInnerHTML={{ __html: body }} />
     </Wrapper>
   </Container>

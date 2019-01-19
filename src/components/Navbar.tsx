@@ -4,11 +4,14 @@ import { Link } from './Link';
 
 
 const Nav = styled('nav')`
-
+  display: flex;
+  width: 100%;
+  padding: 2em;
+  background-color: ${({ theme }) => theme.color.navbar};
 `
 
 const Container = styled('div')`
-
+  display: flex;
 `
 
 const List = styled('ul')`

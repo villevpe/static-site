@@ -2,7 +2,9 @@
 export const color = {
   white: '#FFFFFF',
   black: '#000000',
-  green: '#93FFA9'
+  green: '#93FFA9',
+  footer: '#F3F3F3',
+  navbar: '#f3f3f3'
 }
 
 export const font = {
@@ -15,6 +17,8 @@ export default interface ThemeInterface {
     white: string,
     green: string,
     black: string,
+    footer: string,
+    navbar: string
   }
   font: {
     header: string,

@@ -1,10 +1,10 @@
 ---
 templateKey: navbar
 items:
-  - label: home
+  - label: Home
     href: /
-  - label: link1
-    href: '#link1'
-  - label: link2
-    href: '#link2'
+  - label: Section 1
+    href: '#section1'
+  - label: Section 2
+    href: '#section2'
 ---
