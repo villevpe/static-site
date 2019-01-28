@@ -9,3 +9,10 @@ export const scrollElementIntoView = (id: string) => {
         })
     }
 }
+
+export const isMobileViewPort = () => {
+    if (document) {
+        return document.documentElement.clientWidth <= 768
+    }
+    return false
+}

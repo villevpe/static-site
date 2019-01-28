@@ -10,7 +10,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   html, body {
-    background-color: ${({ theme }) => theme.color.white};
+    background-color: ${({ theme }) => theme.color.background};
     padding: 0;
     margin: 0;
     font-family: Roboto, sans-serif;
@@ -20,8 +20,20 @@ export const GlobalStyle = createGlobalStyle`
     font-family: Oxygen, sans-serif;
   }
 
+  h1 {
+    font-size: 4vmin + 1em;
+  }
+
+  h2 {
+    font-size: 3vmin + 1em;
+  }
+
+  h3 {
+    font-size: 2vmi + 1em;
+  }
+
   p {
-    line-height: 1.8em;
+    line-height: 2em;
     font-size: 1.15em;
   }
 `

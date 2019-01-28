@@ -8,13 +8,12 @@ import { Navbar } from '../components/Navbar'
 import styled from '../styles/styled-components'
 import { Section } from '../components/Section'
 import { Footer } from '../components/Footer';
+import { theme } from '../styles';
 
 const Container = styled('div')`
   display: flex;
   flex-direction: column;
   margin: auto;
-  max-width: 800px;
-  padding: 2em;
 `
 
 const Title = styled(Heading)`
@@ -67,7 +66,7 @@ interface Props {
 const IndexPage: React.SFC<Props> = ({ data: { homeData = null, navbarData = null, sectionData = null, footerData = null } }) => {
   const home = homeData ? homeData.edges[0].node.frontmatter : null
   const navbar = navbarData ? navbarData.edges[0].node.frontmatter : null
-  const sections = sectionData ? sectionData.edges.map(({ node: { html, frontmatter } }) => ({ body: html, ...frontmatter })) : null
+  const sections = sectionData ? sectionData.edges.map(({ node: { html, frontmatter } }) => ({ body: html, ...frontmatter })).reverse() : null
   const footer = footerData ? footerData.edges[0].node.frontmatter : null
   return (
     <Layout>
@@ -76,7 +75,16 @@ const IndexPage: React.SFC<Props> = ({ data: { homeData = null, navbarData = nul
         <Container>
           <Title level={HeadingLevel.H1} text={home ? home.title : null} />
           {sections && sections.map(({ body, anchor, title, image }, i) => (
-            <Section key={i} id={anchor} body={body} title={title} image={image} />
+            <Section
+              key={i}
+              id={anchor}
+              body={body}
+              title={title}
+              image={image}
+              background={Boolean(i % 2) ? theme.color.section : theme.color.alternateSection}
+              color={Boolean(i % 2) ? theme.color.text : theme.color.alternateText}
+              nextLink={i === sections.length - 1 ? undefined : sections[i + 1].anchor}
+            />
           ))}
         </Container>
         <Footer items={footer ? footer.items : null} />

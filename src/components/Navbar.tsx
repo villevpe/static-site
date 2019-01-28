@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from '../styles/styled-components'
-import { Link } from './Link';
+import { slide as Menu } from 'react-burger-menu'
+import { Link } from './Link'
+import { isMobileViewPort } from '../utils';
 
 
 const Nav = styled('nav')`
@@ -34,19 +36,35 @@ interface MenuItemList {
   }[]
 }
 
+const renderItems = (items: any[]) => {
+  return items && items.length > 0 ? (
+    <List>
+      {items.map((item, i) => (
+        <Item key={i}>
+          <Link href={item.href} text={item.label} />
+        </Item>
+      ))}
+    </List>
+  ) : null
+}
 
 export const Navbar: React.SFC<MenuItemList> = ({ items }) => (
   <Nav>
     <Container>
-      {items && items.length > 0 && (
-        <List>
-          {items.map((item, i) => (
-            <Item key={i}>
-              <Link href={item.href} text={item.label} />
-            </Item>
-          ))}
-        </List>
-      )}
+      {isMobileViewPort() ?
+        (
+          <Menu>
+            {renderItems(items)}
+          </Menu>
+        )
+        :
+        (
+          <>
+            {renderItems(items)}
+          </>
+        )
+      }
+
     </Container>
   </Nav>
 )

@@ -2,10 +2,17 @@ import React, { HTMLAttributes } from 'react'
 import styled from '../styles/styled-components'
 import { Image } from '../pages'
 import { Heading, HeadingLevel } from './Heading'
+import { ArrowDown } from './ArrowDown';
+import { theme } from '../styles';
+import { scrollElementIntoView } from '../utils';
 
-const Container = styled('div')`
+const Container = styled<{ backgroundColor: string, color: string }, 'div'>('div')`
   display: flex;
-  min-height: 100vh;
+  background-color: ${({ backgroundColor }) => backgroundColor};
+  color: ${({ color }) => color};
+  min-height: 90vh;
+  width: 100%;
+  padding: 2em;
 `
 
 const Wrapper = styled('div')`
@@ -19,17 +26,47 @@ const Content = styled('div')`
   display: flex;
 `
 
+const LinkToNext = styled('a')`
+  text-decoration: none;
+  justify-content: center;
+  cursor: pointer;
+  display: flex;
+  color: ${({ theme }) => theme.color.black};
+  &:hover {
+    > svg {
+      stroke: ${({ theme }) => theme.color.green};
+    }
+  }
+`
+
 interface Props {
   title: string
   body: string
+  background: string
   image?: Image
+  nextLink?: string
 }
 
-export const Section: React.SFC<Props & HTMLAttributes<HTMLDivElement>> = ({ title, body, image, ...props }) => (
-  <Container {...props}>
+const onLinkClick = (event: React.MouseEvent<any>, id: string) => {
+  event.preventDefault()
+  scrollElementIntoView(id)
+}
+
+export const Section: React.SFC<Props & HTMLAttributes<HTMLDivElement>> = ({ title, body, image, background, color, nextLink: nextSectionId, ...props }) => (
+  <Container backgroundColor={background} color={color} {...props}>
     <Wrapper>
-      <Heading level={HeadingLevel.H2} text={title} />
+      <Heading level={HeadingLevel.H2} text={title} color={color} />
       <Content dangerouslySetInnerHTML={{ __html: body }} />
+      {nextSectionId && (
+        <LinkToNext onClick={(event) => onLinkClick(event, nextSectionId)}>
+          <ArrowDown
+            color={color || theme.color.black}
+            width={theme.icon.size.M.width}
+            height={theme.icon.size.M.height}
+            strokeWidth='2'
+          />
+        </LinkToNext>
+      )}
     </Wrapper>
   </Container>
 )

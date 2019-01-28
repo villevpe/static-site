@@ -9,12 +9,13 @@ export enum HeadingLevel {
 
 interface Props extends HtmlHTMLAttributes<HTMLHeadElement> {
   text: string
-  level: HeadingLevel
+  level: HeadingLevel,
+  color: string
 }
 
-export const Heading: React.SFC<Props> = ({ text, level = HeadingLevel.H1, ...props }) => {
+export const Heading: React.SFC<Props> = ({ text, color, level = HeadingLevel.H1, ...props }) => {
   const HeadElement = styled(level)`
-    color: ${({ theme }) => theme.color.black};
+    color: ${({ theme }) => color || theme.color.black};
     text-align: center;
   `
   return (
