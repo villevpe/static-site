@@ -8,13 +8,13 @@ export const color = {
   background: '#F1F1F1',
   section: '#F1F1F1',
   text: '#2B2B2B',
-  alternateSection: '#a1ce57',
+  alternateSection: '#c9e29f',
   alternateText: '#000000',
 }
 
 export const font = {
-  header: 'Arial',
-  body: 'Arial'
+  header: 'Spectral, sans-serif',
+  body: 'Karla, sans-serif'
 }
 
 export default interface ThemeInterface {

@@ -32,6 +32,7 @@ const LinkToNext = styled('a')`
   cursor: pointer;
   display: flex;
   color: ${({ theme }) => theme.color.black};
+  margin-top: 10vh;
   &:hover {
     > svg {
       stroke: ${({ theme }) => theme.color.white};

@@ -18,7 +18,7 @@ const Container = styled<{ backgroundColor: string, color: string }, 'div'>('div
 const Wrapper = styled('div')`
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
+  margin: 5% auto;
   max-width: 800px;
 `
 
@@ -31,6 +31,7 @@ const LinkToNext = styled('a')`
   justify-content: center;
   cursor: pointer;
   display: flex;
+  margin-top: 10vh;
   color: ${({ theme }) => theme.color.black};
   &:hover {
     > svg {

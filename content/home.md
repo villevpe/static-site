@@ -1,5 +1,6 @@
 ---
 templateKey: home
+anchor: home
 image:
   src: /images/television.png
   alt: Todo

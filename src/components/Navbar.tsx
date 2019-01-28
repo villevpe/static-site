@@ -6,8 +6,8 @@ import { Link } from './Link'
 
 const Nav = styled('nav')`
   display: flex;
+  position: fixed;
   width: 100%;
-  padding: 2em;
   background-color: ${({ theme }) => theme.color.navbar};
 
   ${breakpoint('mobile', 'tablet')`
@@ -39,16 +39,22 @@ const List = styled('ul')`
   margin: 0;
   padding: 0;
   outline: none;
+  padding: 1em;
+  align-items: center;
 `
-const Item = styled('li')`
+const Item = styled<{ logo: boolean }, 'li'>('li')`
   display: flex;
   cursor: pointer;
   list-style-type: none;
-  padding: 0 2em;
-  font-size: 1.1em;
+  padding: 0 30px;
+  font-size: 1.3em;
+  font-family: ${({ theme }) => theme.font.body};
 
   ${breakpoint('mobile', 'tablet')`
     padding: .5em 0;
+  `};
+  ${({ logo, theme }) => logo && `
+    font-size: 1.7em;
   `};
 `
 
@@ -104,6 +110,7 @@ const NavBarStyles = {
 interface Props {
   items: {
     href: string
+    style?: string
     label: string
   }[]
 }
@@ -125,7 +132,7 @@ export class Navbar extends React.Component<Props, State> {
     return items && items.length > 0 ? (
       <List>
         {items.map((item, i) => (
-          <Item key={i} onClick={this.onLinkClick}>
+          <Item key={i} onClick={this.onLinkClick} logo={item.style === 'logo'}>
             <Link href={item.href} text={item.label} />
           </Item>
         ))}

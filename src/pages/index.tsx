@@ -15,14 +15,7 @@ const Container = styled('div')`
   display: flex;
   flex-direction: column;
   margin: auto;
-`
-
-const Title = styled(Heading)`
-  padding: 2em 0;
-`
-
-const Content = styled('div')`
-  display: flex;
+  padding-top: 2em;
 `
 
 export interface Image {
@@ -41,7 +34,7 @@ interface MarkdownRemarkData<T> {
 }
 
 interface NavbarData {
-  items: { href: string, label: string }[]
+  items: { href: string, label: string, style: string }[]
 }
 
 interface FooterData {
@@ -50,6 +43,7 @@ interface FooterData {
 
 interface HomeData {
   title: string
+  anchor: string
   image: Image[]
 }
 
@@ -80,6 +74,7 @@ const IndexPage: React.SFC<Props> = ({ data: { homeData = null, navbarData = nul
         <Container>
           {home && (
             <Home
+              id={home.frontmatter.anchor}
               body={home.html}
               title={home.frontmatter.title}
               image={home.frontmatter.image}
@@ -115,6 +110,7 @@ export const query = graphql`
           html
           frontmatter {
             title
+            anchor
             image {
               src
               alt
@@ -146,6 +142,7 @@ export const query = graphql`
           frontmatter {
             items {
               label
+              style
               href
             }
           }

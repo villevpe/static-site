@@ -20,6 +20,7 @@ collections:
               fields:
                 [
                   { label: "Label", name: "label", widget: "string" },
+                  { label: "Style", name: "style", widget: "string" },
                   { label: "Url", name: "href", widget: "string" }
                 ]
             }

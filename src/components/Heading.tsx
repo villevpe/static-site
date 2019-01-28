@@ -17,6 +17,7 @@ export const Heading: React.SFC<Props> = ({ text, color, level = HeadingLevel.H1
   const HeadElement = styled(level)`
     color: ${({ theme }) => color || theme.color.black};
     text-align: center;
+    font-family: ${({ theme }) => theme.font.header};
   `
   return (
     <HeadElement {...props}>

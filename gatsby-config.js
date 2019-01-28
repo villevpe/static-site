@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: 'Todo: title',
+    title: 'Site title',
     description: 'Todo: description',
     keywords: 'Todo: keywords',
     canonicalUrl: 'https://'
