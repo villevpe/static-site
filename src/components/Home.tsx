@@ -18,7 +18,7 @@ const Container = styled<{ backgroundColor: string, color: string }, 'div'>('div
 const Wrapper = styled('div')`
   display: flex;
   flex-direction: column;
-  margin: auto;
+  margin: 0 auto;
   max-width: 800px;
 `
 
@@ -42,8 +42,7 @@ const LinkToNext = styled('a')`
 interface Props {
   title: string
   body: string
-  background: string
-  image?: Image
+  image?: Image[]
   nextLink?: string
 }
 
@@ -52,15 +51,15 @@ const onLinkClick = (event: React.MouseEvent<any>, id: string) => {
   scrollElementIntoView(id)
 }
 
-export const Section: React.SFC<Props & HTMLAttributes<HTMLDivElement>> = ({ title, body, image, background, color, nextLink, ...props }) => (
-  <Container backgroundColor={background} color={color} {...props}>
+export const Home: React.SFC<Props & HTMLAttributes<HTMLDivElement>> = ({ title, body, image, nextLink, ...props }) => (
+  <Container {...props}>
     <Wrapper>
-      <Heading level={HeadingLevel.H2} text={title} color={color} />
+      <Heading level={HeadingLevel.H2} text={title} />
       <Content dangerouslySetInnerHTML={{ __html: body }} />
       {nextLink && (
         <LinkToNext onClick={(event) => onLinkClick(event, nextLink)}>
           <ArrowDown
-            color={color || theme.color.black}
+            color={theme.color.black}
             width={theme.icon.size.M.width}
             height={theme.icon.size.M.height}
             strokeWidth='2'

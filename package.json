@@ -32,11 +32,13 @@
     "start": "npm run develop"
   },
   "devDependencies": {
+    "@types/react-burger-menu": "^2.2.2",
     "@types/styled-components": "^4.1.4",
     "gatsby-plugin-typescript": "^2.0.3",
-    "react-burger-menu": "^2.6.1",
+    "react-burger-menu": "^2.6.2",
     "scroll-into-view": "^1.9.3",
     "standard": "^12.0.1",
+    "styled-components-breakpoint": "^2.1.1",
     "typescript": "^3.2.2"
   },
   "repository": {

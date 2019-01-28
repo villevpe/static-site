@@ -9,6 +9,7 @@ import styled from '../styles/styled-components'
 import { Section } from '../components/Section'
 import { Footer } from '../components/Footer';
 import { theme } from '../styles';
+import { Home } from '../components/Home';
 
 const Container = styled('div')`
   display: flex;
@@ -18,6 +19,10 @@ const Container = styled('div')`
 
 const Title = styled(Heading)`
   padding: 2em 0;
+`
+
+const Content = styled('div')`
+  display: flex;
 `
 
 export interface Image {
@@ -64,7 +69,7 @@ interface Props {
 }
 
 const IndexPage: React.SFC<Props> = ({ data: { homeData = null, navbarData = null, sectionData = null, footerData = null } }) => {
-  const home = homeData ? homeData.edges[0].node.frontmatter : null
+  const home = homeData ? homeData.edges[0].node : null
   const navbar = navbarData ? navbarData.edges[0].node.frontmatter : null
   const sections = sectionData ? sectionData.edges.map(({ node: { html, frontmatter } }) => ({ body: html, ...frontmatter })).reverse() : null
   const footer = footerData ? footerData.edges[0].node.frontmatter : null
@@ -73,7 +78,14 @@ const IndexPage: React.SFC<Props> = ({ data: { homeData = null, navbarData = nul
       <>
         <Navbar items={navbar ? navbar.items : null} />
         <Container>
-          <Title level={HeadingLevel.H1} text={home ? home.title : null} />
+          {home && (
+            <Home
+              body={home.html}
+              title={home.frontmatter.title}
+              image={home.frontmatter.image}
+              nextLink={sections[0].anchor}
+            />
+          )}
           {sections && sections.map(({ body, anchor, title, image }, i) => (
             <Section
               key={i}
@@ -100,6 +112,7 @@ export const query = graphql`
       edges {
         node {
           id
+          html
           frontmatter {
             title
             image {

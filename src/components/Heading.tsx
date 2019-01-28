@@ -10,7 +10,7 @@ export enum HeadingLevel {
 interface Props extends HtmlHTMLAttributes<HTMLHeadElement> {
   text: string
   level: HeadingLevel,
-  color: string
+  color?: string
 }
 
 export const Heading: React.SFC<Props> = ({ text, color, level = HeadingLevel.H1, ...props }) => {

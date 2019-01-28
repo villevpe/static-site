@@ -1,19 +1,36 @@
 import React from 'react'
 import styled from '../styles/styled-components'
+import breakpoint from 'styled-components-breakpoint'
 import { slide as Menu } from 'react-burger-menu'
 import { Link } from './Link'
-import { isMobileViewPort } from '../utils';
-
 
 const Nav = styled('nav')`
   display: flex;
   width: 100%;
   padding: 2em;
   background-color: ${({ theme }) => theme.color.navbar};
+
+  ${breakpoint('mobile', 'tablet')`
+    padding: 0;
+  `};
 `
 
 const Container = styled('div')`
   display: flex;
+`
+
+const OnlyInMobile = styled('div')`
+  display: none;
+  ${breakpoint('mobile', 'tablet')`
+    display: flex;
+  `};
+`
+
+const OnlyInDesktop = styled('div')`
+  display: none;
+  ${breakpoint('tablet')`
+    display: flex;
+  `};
 `
 
 const List = styled('ul')`
@@ -21,50 +38,116 @@ const List = styled('ul')`
   flex-direction: row;
   margin: 0;
   padding: 0;
+  outline: none;
 `
 const Item = styled('li')`
   display: flex;
+  cursor: pointer;
   list-style-type: none;
   padding: 0 2em;
   font-size: 1.1em;
+
+  ${breakpoint('mobile', 'tablet')`
+    padding: .5em 0;
+  `};
 `
 
-interface MenuItemList {
+const NavBarStyles = {
+  bmBurgerButton: {
+    position: 'fixed',
+    width: '30px',
+    height: '25px',
+    left: '20px',
+    top: '20px'
+  },
+  bmBurgerBars: {
+    background: '#373a47',
+    borderRadius: '8px',
+  },
+  bmBurgerBarsHover: {
+    background: '#a90000'
+  },
+  bmCrossButton: {
+    height: '36px',
+    width: '36px',
+    top: '15px',
+    right: '15px',
+  },
+  bmCross: {
+    background: '#373a47',
+    height: '28px'
+  },
+  bmMenuWrap: {
+    position: 'fixed',
+    height: '100%'
+  },
+  bmMenu: {
+    background: '#ffffff',
+    padding: '2.5em 1.5em 0',
+    fontSize: '1.15em'
+  },
+  bmMorphShape: {
+    fill: '#373a47'
+  },
+  bmItemList: {
+    color: '#b8b7ad',
+    padding: '0.8em'
+  },
+  bmItem: {
+    display: 'inline-block'
+  },
+  bmOverlay: {
+    background: 'rgba(0, 0, 0, 0.3)'
+  }
+}
+
+interface Props {
   items: {
     href: string
     label: string
   }[]
 }
 
-const renderItems = (items: any[]) => {
-  return items && items.length > 0 ? (
-    <List>
-      {items.map((item, i) => (
-        <Item key={i}>
-          <Link href={item.href} text={item.label} />
-        </Item>
-      ))}
-    </List>
-  ) : null
+interface State {
+  menuOpen: boolean
 }
 
-export const Navbar: React.SFC<MenuItemList> = ({ items }) => (
-  <Nav>
-    <Container>
-      {isMobileViewPort() ?
-        (
-          <Menu>
-            {renderItems(items)}
-          </Menu>
-        )
-        :
-        (
-          <>
-            {renderItems(items)}
-          </>
-        )
-      }
+export class Navbar extends React.Component<Props, State> {
+  state = {
+    menuOpen: false
+  }
 
-    </Container>
-  </Nav>
-)
+  onLinkClick = () => {
+    this.setState({ menuOpen: false })
+  }
+
+  renderItems = (items: any[]) => {
+    return items && items.length > 0 ? (
+      <List>
+        {items.map((item, i) => (
+          <Item key={i} onClick={this.onLinkClick}>
+            <Link href={item.href} text={item.label} />
+          </Item>
+        ))}
+      </List>
+    ) : null
+  }
+
+  render() {
+    const { items } = this.props
+    return (
+      <Nav>
+        <Container>
+          <OnlyInMobile>
+            <Menu styles={NavBarStyles} width={'70%'} isOpen={this.state.menuOpen}>
+              {this.renderItems(items)}
+            </Menu>
+          </OnlyInMobile>
+          <OnlyInDesktop>
+            {this.renderItems(items)}
+          </OnlyInDesktop>
+        </Container>
+      </Nav>
+    )
+  }
+}
