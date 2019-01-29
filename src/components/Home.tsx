@@ -6,13 +6,17 @@ import { ArrowDown } from './ArrowDown';
 import { theme } from '../styles';
 import { scrollElementIntoView } from '../utils';
 
-const Container = styled<{ backgroundColor: string, color: string }, 'div'>('div')`
+const Container = styled<{ backgroundColor: string, color: string, image: string }, 'div'>('div')`
   display: flex;
   background-color: ${({ backgroundColor }) => backgroundColor};
   color: ${({ color }) => color};
   min-height: 100vh;
   width: 100%;
   padding: 2em;
+  ${({image}) => image && `
+    background-image: url(${image});
+    background-size: cover;
+  `};
 `
 
 const Wrapper = styled('div')`
@@ -43,7 +47,7 @@ const LinkToNext = styled('a')`
 interface Props {
   title: string
   body: string
-  image?: Image[]
+  image?: Image
   nextLink?: string
 }
 
@@ -53,7 +57,7 @@ const onLinkClick = (event: React.MouseEvent<any>, id: string) => {
 }
 
 export const Home: React.SFC<Props & HTMLAttributes<HTMLDivElement>> = ({ title, body, image, nextLink, ...props }) => (
-  <Container {...props}>
+  <Container {...props} image={image && image.src.childImageSharp.fluid.src}>
     <Wrapper>
       <Heading level={HeadingLevel.H2} text={title} />
       <Content dangerouslySetInnerHTML={{ __html: body }} />

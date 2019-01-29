@@ -2,7 +2,7 @@
 templateKey: home
 anchor: home
 image:
-  src: /images/television.png
+  src: /assets/header.jpg
   alt: Todo
 title: Main title
 ---

@@ -3,7 +3,7 @@ templateKey: section
 title: Section 1
 anchor: section1
 image:
-  src: /images/television.png
+  src: /assets/gatsby-astronaut.png
   alt: Todo
 ---
 <p>

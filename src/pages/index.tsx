@@ -2,8 +2,6 @@ import React from 'react'
 import { graphql } from 'gatsby'
 
 import { Layout } from '../components/Layout'
-import { ProfileImage } from '../components/ProfileImage'
-import { Heading, HeadingLevel } from '../components/Heading'
 import { Navbar } from '../components/Navbar'
 import styled from '../styles/styled-components'
 import { Section } from '../components/Section'
@@ -17,9 +15,19 @@ const Container = styled('div')`
   margin: auto;
   padding-top: 2em;
 `
+interface ImageSource {
+  childImageSharp: {
+    fluid: {
+      aspectRatio: number
+      src: string
+      srcSet: string
+      sizes: string
+    }
+  }
+}
 
 export interface Image {
-  src: string
+  src: ImageSource
   alt: string
 }
 
@@ -44,7 +52,7 @@ interface FooterData {
 interface HomeData {
   title: string
   anchor: string
-  image: Image[]
+  image: Image
 }
 
 interface SectionData {
@@ -65,7 +73,7 @@ interface Props {
 const IndexPage: React.SFC<Props> = ({ data: { homeData = null, navbarData = null, sectionData = null, footerData = null } }) => {
   const home = homeData ? homeData.edges[0].node : null
   const navbar = navbarData ? navbarData.edges[0].node.frontmatter : null
-  const sections = sectionData ? sectionData.edges.map(({ node: { html, frontmatter } }) => ({ body: html, ...frontmatter })).reverse() : null
+  const sections = sectionData ? sectionData.edges.map(({ node: { html, frontmatter } }) => ({ body: html, ...frontmatter })) : null
   const footer = footerData ? footerData.edges[0].node.frontmatter : null
   return (
     <Layout>
@@ -81,18 +89,22 @@ const IndexPage: React.SFC<Props> = ({ data: { homeData = null, navbarData = nul
               nextLink={sections[0].anchor}
             />
           )}
-          {sections && sections.map(({ body, anchor, title, image }, i) => (
-            <Section
-              key={i}
-              id={anchor}
-              body={body}
-              title={title}
-              image={image}
-              background={Boolean(i % 2) ? theme.color.section : theme.color.alternateSection}
-              color={Boolean(i % 2) ? theme.color.text : theme.color.alternateText}
-              nextLink={i === sections.length - 1 ? undefined : sections[i + 1].anchor}
-            />
-          ))}
+          {sections && sections.map(({ body, anchor, title, image }, i) => {
+            const isAlternate = Boolean(i % 2)
+            return (
+              <Section
+                key={i}
+                id={anchor}
+                body={body}
+                title={title}
+                image={image}
+                isAlternate={isAlternate}
+                background={isAlternate ? theme.color.section : theme.color.alternateSection}
+                color={isAlternate ? theme.color.text : theme.color.alternateText}
+                nextLink={i === sections.length - 1 ? undefined : sections[i + 1].anchor}
+              />
+            )
+          })}
         </Container>
         <Footer items={footer ? footer.items : null} />
       </>
@@ -112,8 +124,17 @@ export const query = graphql`
             title
             anchor
             image {
-              src
               alt
+              src {
+                childImageSharp {
+                  fluid(maxWidth: 2560) {
+                    src
+                    aspectRatio
+                    srcSet
+                    sizes
+                  }
+                }
+              }
             }
           }
         }
@@ -128,8 +149,17 @@ export const query = graphql`
             title
             anchor
             image {
-              src
               alt
+              src {
+                childImageSharp {
+                  fluid(maxWidth: 800) {
+                    src
+                    aspectRatio
+                    srcSet
+                    sizes
+                  }
+                }
+              }
             }
           }
         }
