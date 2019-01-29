@@ -8,7 +8,7 @@ const Nav = styled('nav')`
   display: flex;
   position: fixed;
   width: 100%;
-  background-color: ${({ theme }) => theme.color.navbar};
+  z-index: 20;
 
   ${breakpoint('mobile', 'tablet')`
     padding: 0;

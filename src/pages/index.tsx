@@ -13,7 +13,6 @@ const Container = styled('div')`
   display: flex;
   flex-direction: column;
   margin: auto;
-  padding-top: 2em;
 `
 interface ImageSource {
   childImageSharp: {
